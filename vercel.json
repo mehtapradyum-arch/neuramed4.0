@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/cron-tick.ts": {
-      "runtime": "nodejs18.x",
-      "memory": 512,
-      "maxDuration": 60
-    }
-  },
   "crons": [
     {
       "path": "/api/cron-tick",
