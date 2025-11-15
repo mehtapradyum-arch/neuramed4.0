@@ -1,17 +1,21 @@
+// src/app/api/meds/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { requireVerifiedSession } from "@/lib/validator";
 import { rateLimit } from "@/lib/rateLimit";
+import { requireVerifiedSession } from "@/lib/validator";
 
 export async function GET() {
   const session = await requireVerifiedSession();
-  const meds = await prisma.medication.findMany({ where: { userId: session.user.id } });
+  const meds = await prisma.medication.findMany({
+    where: { userId: session.user.id },
+  });
   return NextResponse.json(meds);
 }
 
 export async function POST(req: Request) {
   const session = await requireVerifiedSession();
   await rateLimit(`${session.user.id}:meds`);
+
   const body = await req.json();
   const med = await prisma.medication.create({
     data: {
@@ -25,5 +29,6 @@ export async function POST(req: Request) {
       notes: body.notes || null,
     },
   });
+
   return NextResponse.json(med, { status: 201 });
 }
