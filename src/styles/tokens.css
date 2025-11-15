@@ -1,0 +1,7 @@
+:root {
+  --color-bg: #ffffff;
+  --color-fg: #0b0b0b;
+  --color-accent: #f2c58a;
+  --radius-xl: 20px;
+  --shadow-soft: 0 8px 30px rgba(0,0,0,0.08);
+}
