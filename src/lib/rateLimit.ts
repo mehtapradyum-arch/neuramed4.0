@@ -17,7 +17,8 @@ async function getRedis() {
 }
 
 /**
- * Exported function: rateLimit
+ * Rate limit helper.
+ * Throws an error if the limit is exceeded.
  */
 export async function rateLimit(key: string) {
   const redis = await getRedis();
