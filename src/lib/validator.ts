@@ -13,4 +13,3 @@ export async function requireVerifiedSession() {
   }
   return session;
 }
-
