@@ -14,7 +14,11 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const session = await requireVerifiedSession();
-  await rateLimit(`${session.user.id}:meds`);
+
+  // ✅ Only enforce rate limiting in production
+  if (process.env.NODE_ENV === "production") {
+    await rateLimit(`${session.user.id}:meds`);
+  }
 
   const body = await req.json();
   const med = await prisma.medication.create({
