@@ -4,7 +4,6 @@ import { authOptions } from "./auth";
 
 /**
  * Require a verified session.
- * Throws if no session or email not verified.
  */
 export async function requireVerifiedSession() {
   const session = await getServerSession(authOptions);
