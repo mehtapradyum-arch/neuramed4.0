@@ -17,4 +17,10 @@ function urlBase64ToUint8Array(base64String: string) {
   for (let i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
   return outputArray;
 }
+import { Resend } from "resend";
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+export async function sendEmail(to: string, subject: string, html: string) {
+  if (!resend) return { id: "mock", status: "skipped" };
+  return await resend.emails.send({ from: process.env.EMAIL_FROM!, to, subject, html });
+}
